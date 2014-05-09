@@ -965,7 +965,8 @@ void httpdProcessRequest(httpd *server, request *r)
 	cp = strrchr(dirName, '/');
 	if (cp == NULL)
 	{
-		printf("Invalid request path '%s'\n",dirName);
+		_httpd_writeErrorLog(server, r, LEVEL_ERROR, "Invalid request path\n");
+		_httpd_send503(server, r);
 		return;
 	}
 	strncpy(entryName, cp + 1, HTTP_MAX_URL);

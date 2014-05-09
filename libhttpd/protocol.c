@@ -569,6 +569,16 @@ void _httpd_send404(httpd *server, request *r)
 	}
 }
 
+void _httpd_send503(httpd *server, request *r)
+{
+	httpdSetResponse(r, "503 Internal Server Error");
+	_httpd_sendHeaders(r,0,0);
+	_httpd_sendText(r,
+		"<HTML><HEAD><TITLE>503 Internal Server Error</TITLE></HEAD>\n");
+	_httpd_sendText(r,
+		"<BODY><H1>503 Internal Server Error!</H1>\n");
+	_httpd_sendText(r, "</BODY></HTML>\n");
+}
 
 void _httpd_catFile(request *r, char *path)
 {
